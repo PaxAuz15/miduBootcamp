@@ -1,18 +1,7 @@
 import React from 'react'
-
-const Header = (props) => <h1>{props.course}</h1>
-
-const Content = ({part,exercise}) => <p>{`${part} ${exercise}`}</p>
-
-const Footer = ({exercises}) => {
-  let total = 0
-  for (let i = 0; i < exercises.length; i++) {
-    total += exercises[i]
-  }
-  return (
-    <p>Number of exercises {total}</p>
-  )
-}
+import Header from './Header'
+import Content from './Content'
+import Footer from './Footer'
 
 const App = () => {
   const course = 'Half Stack application development'
