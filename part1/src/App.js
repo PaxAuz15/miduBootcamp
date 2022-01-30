@@ -1,23 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
+import Message from './Message';
+
+const Description = () => {
+  return <p>App from FullStack Cource</p>
+}
 
 function App() {
+  const message = 'Timestamp:';
+  // const a = 2
+  // const b = 3
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Message message="We're working in React Course" color="grey"/>
+      <Description />
+      {message+new Date() /*Timestamp*/}
     </div>
   );
 }
