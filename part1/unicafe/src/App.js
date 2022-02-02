@@ -1,17 +1,9 @@
 import './App.css';
 import { useState } from 'react';
 
-const Title = ({text}) => {
-  return <h1>{text}</h1>
-}
-
-const Button = ({option,func}) => {
-  return <button onClick={func}>{option}</button>
-}
-
-const DataRepresent = ({option,counterValue}) => {
-  return <p>{`${option} ${counterValue}`}</p>
-}
+import Title from './Title';
+import Button from './Button';
+import Statistics from './Statistics';
 
 const INITIAL_COUNTER_STATE = {
   good: 0,
@@ -61,22 +53,7 @@ const App = () => {
       <Button option="good" func={handleClickGood}/>
       <Button option="neutral" func={handleClickNeutral}/>
       <Button option="bad" func={handleClickBad}/>
-      <Title text="statistics"/>
-      <DataRepresent option="good" counterValue={counter.good}/>
-      <DataRepresent option="neutral" counterValue={counter.neutral}/>
-      <DataRepresent option="bad" counterValue={counter.bad}/>
-      <DataRepresent option="all" counterValue={all} />
-      {
-        all === 0 ? 
-        <>
-          <DataRepresent option="average" counterValue={0} />
-          <DataRepresent option="positive" counterValue="0%" />
-        </> :
-        <>
-          <DataRepresent option="average" counterValue={average} />
-          <DataRepresent option="positive" counterValue={positive} />
-        </>
-      }
+      <Statistics all={all} average={average} positive={positive} counter={counter} />
     </div>
   );
 }
