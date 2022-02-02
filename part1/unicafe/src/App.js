@@ -50,6 +50,11 @@ const App = () => {
     })
   }
 
+  //Calculations
+  const all = counter.good + counter.bad + counter.neutral
+  const average = (counter.good - counter.bad) / all
+  const positive = `${counter.good / all}%`
+
   return (
     <div className="App">
       <Title  text="give feedback"/>
@@ -60,6 +65,18 @@ const App = () => {
       <DataRepresent option="good" counterValue={counter.good}/>
       <DataRepresent option="neutral" counterValue={counter.neutral}/>
       <DataRepresent option="bad" counterValue={counter.bad}/>
+      <DataRepresent option="all" counterValue={all} />
+      {
+        all === 0 ? 
+        <>
+          <DataRepresent option="average" counterValue={0} />
+          <DataRepresent option="positive" counterValue="0%" />
+        </> :
+        <>
+          <DataRepresent option="average" counterValue={average} />
+          <DataRepresent option="positive" counterValue={positive} />
+        </>
+      }
     </div>
   );
 }
