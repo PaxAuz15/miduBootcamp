@@ -43,47 +43,63 @@ const INITIAL_COUNTER_STATE = {
 
 const App = () => {
     const [counterClicks, setCounterClicks] = useState(INITIAL_COUNTER_STATE)
-
+    
+    const [clicks, setCliks] = useState([])
+    
     function handleClickLeft() {
-        setCounterClicks(preventData=>{
-            return {
-                ...preventData,
-                left: preventData.left + 1,
-                msg: [...preventData.msg, 'L']
-            }
-        })
+        // setCounterClicks(preventData=>{
+        //     return {
+        //         ...preventData,
+        //         left: preventData.left + 1,
+        //         msg: [...preventData.msg, 'L']
+        //     }
+        // })
+        setCliks(preventData=>[...preventData, 'L'])
     }
 
     function handleClickRight() {
-        setCounterClicks(preventData=>{
-            return {
-                ...preventData,
-                right: preventData.right + 1,
-                msg: [...preventData.msg, 'R']
-            }
-        })
+        // setCounterClicks(preventData=>{
+        //     return {
+        //         ...preventData,
+        //         right: preventData.right + 1,
+        //         msg: [...preventData.msg, 'R']
+        //     }
+        // })
+        setCliks(preventData=>[...preventData, 'R'])
     }
 
     function handleClickReset() {
-        setCounterClicks(()=>{
-            return INITIAL_COUNTER_STATE
-        })
+        // setCounterClicks(()=>{
+        //     return INITIAL_COUNTER_STATE
+        // })
+        setCliks([])
     }
+
+    const left = clicks.filter(click=>click==='L') //return an array of clicks that are 'L'
+    const right = clicks.filter(click=>click==='R') //return an array of clicks that are 'R'
 
     return (
         <div>
-            <p>{counterClicks.message}</p>
-            {counterClicks.left}
+            <p>{INITIAL_COUNTER_STATE.message}</p>
+            {left.length}
             <button onClick={handleClickLeft}>Left</button>
             <button onClick={handleClickReset}>Reset</button>
             <button onClick={handleClickRight}>Right</button>
-            {counterClicks.right}
-            {
+            {right.length}
+            {/* {
                 counterClicks.left + counterClicks.right === 0 ?
                 <WarningDontUseCounters/>:
                 <>
                     <ClicksCounter left={counterClicks.left} right={counterClicks.right}/>
                     <ListOfClicks msg={counterClicks.msg}/>
+                </>
+            } */}
+            {
+                left.length + right.length === 0 ?
+                <WarningDontUseCounters/>:
+                <>
+                    <ClicksCounter left={left.length} right={right.length}/>
+                    <ListOfClicks msg={clicks}/>
                 </>
             }
         </div>
