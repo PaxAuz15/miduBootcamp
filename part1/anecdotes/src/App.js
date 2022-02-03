@@ -4,8 +4,17 @@ const Button = ({text,func}) => <button onClick={func}>{text}</button>
 
 function generateRandomNumber(max){
   const randomNumber = Math.floor(Math.random() * max)
-  console.log(randomNumber);
   return randomNumber;
+}
+
+const anecdotesPoints = {
+  0:1,
+  1:3,
+  2:4,
+  3:2,
+  4:7,
+  5:4,
+  6:3
 }
 
 const App = () => {
@@ -20,17 +29,29 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
-
-  function handleClick(){
+  const [points,setPoints] = useState(anecdotesPoints)
+  
+  function handleClickAnecdote(){
     setSelected(() => {
       return generateRandomNumber(anecdotes.length)
+    })
+  }
+
+  function handleClickVote(){
+    setPoints(preventData => {
+      return {
+        ...preventData,
+        [selected]: preventData[selected] + 1
+      }
     })
   }
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
-      <Button text='next anecdote'func={handleClick}/>
+      <p>has {points[selected]}votes</p>
+      <Button text='vote' func={handleClickVote}/>
+      <Button text='next anecdote'func={handleClickAnecdote}/>
     </div>
   )
 }
