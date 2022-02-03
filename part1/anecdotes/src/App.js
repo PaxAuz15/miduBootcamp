@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 const Button = ({text,func}) => <button onClick={func}>{text}</button>
+const Title = ({text}) => <h1>{text}</h1>
 
 function generateRandomNumber(max){
   const randomNumber = Math.floor(Math.random() * max)
@@ -46,12 +47,20 @@ const App = () => {
     })
   }
 
+  // Sorting keys object by object value. Return an array -> https://stackoverflow.com/a/16794116/16950897
+  const keysSorted = Object.keys(points).sort((a,b)=> points[b]-points[a])
+   
   return (
     <div>
+      <Title text='Anecdote of the day' />
       <p>{anecdotes[selected]}</p>
       <p>has {points[selected]}votes</p>
       <Button text='vote' func={handleClickVote}/>
       <Button text='next anecdote'func={handleClickAnecdote}/>
+      <Title text='Anecdote with most votes' />
+      <p>{anecdotes[keysSorted[0]]}</p>
+      <p>has {points[keysSorted[0]]}votes</p>
+
     </div>
   )
 }
