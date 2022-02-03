@@ -1,0 +1,1 @@
+export const Content = ({course, cant}) => <p>{`${course} ${cant}`}</p>
