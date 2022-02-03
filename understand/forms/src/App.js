@@ -17,6 +17,7 @@ const Notes = ({ notes }) => {
 const App = (props) => {
   const [notes, setNote] = useState(props.notes)
   const [newNote, setNewNote] = useState("")
+  const [showAll,setShowAll] = useState(true)
 
   function handleChange(event) {
     setNewNote(event.target.value)
@@ -34,11 +35,19 @@ const App = (props) => {
     setNewNote("")
   }
 
+  function handleShowAll(){
+    setShowAll(!showAll)
+  }
+
   return (
     <div className="App">
       <h1>Notes</h1>
+      <button onClick={handleShowAll}>{showAll?"Show only importants":"Show All"}</button>
       <ol>
-        <Notes notes={notes} />
+        {showAll?
+          <Notes notes={notes}/>:
+          <Notes notes={notes.filter(note=>note.important===true)}/>
+        }
       </ol>
       <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleChange} value={newNote}/>
