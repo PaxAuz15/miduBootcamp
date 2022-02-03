@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Note } from "./Note"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Notes = ({notes}) => {
+  return notes.map((note) => {
+    return (
+      <Note
+        key={note.id}
+        content={note.content}
+        date={note.date}
+        categories={note.categories}
+      />
+    )
+  })
 }
 
-export default App;
+const App = ({notes}) => {
+  return (
+    <div className="App">
+      <h1>Bootcamp Class #4</h1>
+      <ol>
+        <Notes notes={notes}/>
+      </ol>
+    </div>
+  )
+}
+
+export default App
