@@ -22,7 +22,8 @@ const App = (props) => {
     setNewNote(event.target.value)
   }
 
-  function handleClick(event){
+  function handleSubmit(event){
+    event.preventDefault()
     const newNoteToAdd = {
       id: notes.length + 1,
       content: newNote,
@@ -39,10 +40,10 @@ const App = (props) => {
       <ol>
         <Notes notes={notes} />
       </ol>
-      <div>
+      <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleChange} value={newNote}/>
-        <button onClick={handleClick}>Create Note</button>
-      </div>
+        <button>Create Note</button>
+      </form>
     </div>
   )
 }
