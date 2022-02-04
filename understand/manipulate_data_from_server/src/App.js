@@ -48,6 +48,8 @@ const App = () => {
       body: newNote,
     }
 
+    setNote([...notes,newNoteToAdd]) //optimist render (don't wait to finish axios post to render)
+
     axios.post("https://jsonplaceholder.typicode.com/posts",newNoteToAdd)
       .then(response => {
         const {data} = response
