@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useEffect } from "react"
 
 const Note = ({ title, body }) => {
   return (
@@ -9,9 +10,22 @@ const Note = ({ title, body }) => {
   )
 }
 
-const App = (props) => {
-  const [notes, setNote] = useState(props.notes)
+const App = () => {
+  const [notes, setNote] = useState([])
   const [newNote, setNewNote] = useState("")
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    setLoading(true)
+    setInterval(() => {
+      fetch("https://jsonplaceholder.typicode.com/posts")
+        .then((response) => response.json())
+        .then((json) => {
+          setNote(json)
+          setLoading(false)
+        })
+    }, 2000)
+  }, [])
 
   function handleChange(event) {
     setNewNote(event.target.value)
@@ -22,7 +36,7 @@ const App = (props) => {
     const newNoteToAdd = {
       id: notes.length + 1,
       title: newNote,
-      body: newNote
+      body: newNote,
     }
     setNote([...notes, newNoteToAdd])
     setNewNote("")
@@ -32,7 +46,7 @@ const App = (props) => {
     <div className="App">
       <h1>Notes</h1>
       <ol>
-        {notes.map((note) => {
+        {loading? "Loading ...": notes.map((note) => {
           return <Note key={note.id} {...note} />
         })}
       </ol>
