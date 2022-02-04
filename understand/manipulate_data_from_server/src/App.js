@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useEffect } from "react"
-import axios from 'axios'
+import { getAllNotes } from "./services/notes/getAllNotes"
+import { postNote } from "./services/notes/postNote"
 
 const Note = ({ title, body }) => {
   return (
@@ -18,13 +19,10 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true)
-    axios.get("https://jsonplaceholder.typicode.com/posts")
-      .then(response => {
-        const {data} = response
-        setNote(data)
-        setLoading(false)
-      })
-  
+    getAllNotes().then((notes)=>{
+      setNote(notes)
+      setLoading(false)
+    })
     /*
     fetch("https://jsonplaceholder.typicode.com/posts")
         .then((response) => response.json())
@@ -48,14 +46,12 @@ const App = () => {
       body: newNote,
     }
 
-    setNote([...notes,newNoteToAdd]) //optimist render (don't wait to finish axios post to render)
+    postNote(newNoteToAdd).then(newNote=>{
+      setNote([...notes,newNote])
+      setNewNote("")
+    })
 
-    axios.post("https://jsonplaceholder.typicode.com/posts",newNoteToAdd)
-      .then(response => {
-        const {data} = response
-        setNote([...notes,data])
-        setNewNote("")
-      })
+    /*setNote([...notes,newNoteToAdd]) //optimist render (don't wait to finish axios post to render)*/
   }
 
   return (
