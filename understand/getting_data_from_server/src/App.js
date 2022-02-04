@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useEffect } from "react"
+import axios from 'axios'
 
 const Note = ({ title, body }) => {
   return (
@@ -17,14 +18,21 @@ const App = () => {
 
   useEffect(() => {
     setLoading(true)
-    setInterval(() => {
-      fetch("https://jsonplaceholder.typicode.com/posts")
+    axios.get("https://jsonplaceholder.typicode.com/posts")
+      .then(response => {
+        const {data} = response
+        setNote(data)
+        setLoading(false)
+      })
+  
+    /*
+    fetch("https://jsonplaceholder.typicode.com/posts")
         .then((response) => response.json())
         .then((json) => {
           setNote(json)
           setLoading(false)
         })
-    }, 2000)
+    */
   }, [])
 
   function handleChange(event) {
