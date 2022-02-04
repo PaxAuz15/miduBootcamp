@@ -41,13 +41,19 @@ const App = () => {
 
   function handleSubmit(event) {
     event.preventDefault()
+
     const newNoteToAdd = {
-      id: notes.length + 1,
+      userId: 1,
       title: newNote,
       body: newNote,
     }
-    setNote([...notes, newNoteToAdd])
-    setNewNote("")
+
+    axios.post("https://jsonplaceholder.typicode.com/posts",newNoteToAdd)
+      .then(response => {
+        const {data} = response
+        setNote([...notes,data])
+        setNewNote("")
+      })
   }
 
   return (
