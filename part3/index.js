@@ -1,6 +1,7 @@
 // const http = require("http")
 const express = require('express')
 const app = express()
+app.use(express.json()) //Support json body reques
 
 let notes = [
   {
@@ -51,6 +52,28 @@ app.delete('/api/notes/:id', (req, res) => {
   const id = Number(req.params.id)
   notes = notes.filter((note) => note.id !== id)
   res.status(204).end()
+})
+
+app.post('/api/notes', (req, res) => {
+  const body = req.body
+
+  if (!body || !body.content) {
+    res.status(400).json({
+      error: 'body.content is missing',
+    })
+  }
+
+  const ids = notes.map((note) => note.id)
+  const maxId = Math.max(...ids)
+  const newNote = {
+    id: maxId + 1,
+    content: body.content,
+    date: new Date().toISOString(),
+    important: typeof body.important !== 'undefined' ? body.important : false,
+  }
+  notes = [...notes, newNote]
+
+  res.json(newNote)
 })
 
 const PORT = 3002
