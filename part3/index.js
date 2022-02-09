@@ -1,26 +1,27 @@
 // const http = require("http")
 const express = require('express')
 const app = express()
-app.use(express.json()) //Support json body reques
+app.use(express.json()) // Support json body request
+
 let notes = [
   {
     id: 1,
     content: 'HTML is easy',
     date: '2019-05-30T17:30:31.098Z',
-    important: true,
+    important: true
   },
   {
     id: 2,
     content: 'Browser can execute only Javascript',
     date: '2019-05-30T18:39:34.091Z',
-    important: false,
+    important: false
   },
   {
     id: 3,
     content: 'GET and POST are the most important methods of HTTP protocol',
     date: '2019-05-30T19:20:14.298Z',
-    important: true,
-  },
+    important: true
+  }
 ]
 
 // const app = http.createServer((request, response) => {
@@ -58,7 +59,7 @@ app.post('/api/notes', (req, res) => {
 
   if (!body || !body.content) {
     res.status(400).json({
-      error: 'body.content is missing',
+      error: 'body.content is missing'
     })
   }
 
@@ -68,7 +69,7 @@ app.post('/api/notes', (req, res) => {
     id: maxId + 1,
     content: body.content,
     date: new Date().toISOString(),
-    important: typeof body.important !== 'undefined' ? body.important : false,
+    important: typeof body.important !== 'undefined' ? body.important : false
   }
   notes = [...notes, newNote]
 
