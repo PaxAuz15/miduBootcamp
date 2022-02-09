@@ -13,9 +13,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@eslint/create-config": "0.1.2",
-    "eslint": "8.8.0",
-    "nodemon": "2.0.15"
+    "nodemon": "2.0.15",
+    "standard": "16.0.4"
   },
   "dependencies": {
     "express": "4.17.2"
